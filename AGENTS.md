@@ -28,6 +28,7 @@ apps/
 packages/
   core/                # Domaine + ports. Aucune dépendance vers un SDK externe.
   connectors/          # Adaptateurs : github, vercel, llm, upstash…
+  db/                  # Schéma Drizzle, migrations, client Postgres (Supabase). Jamais importé par core.
   agents/              # Prompts, schémas de sortie, logique des agents
   evals/               # Jeux de données et évals
 ```
