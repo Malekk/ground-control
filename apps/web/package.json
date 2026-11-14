@@ -1,0 +1,14 @@
+{
+  "name": "@ground-control/web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Application Next.js (créée au ticket #2).",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@ground-control/connectors",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Adaptateurs qui implémentent les ports du cœur.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  }
+}
