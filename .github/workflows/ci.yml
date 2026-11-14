@@ -17,6 +17,21 @@ jobs:
     name: Lint, typecheck, test
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    services:
+      # Base vide, jetable : les migrations et les règles RLS y sont testées.
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
     steps:
       - uses: actions/checkout@v4
 
@@ -31,3 +46,13 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+
+      - name: Migrations à jour avec le schéma
+        run: |
+          pnpm --filter @ground-control/db db:check
+          pnpm --filter @ground-control/db db:generate
+          git status --porcelain packages/db/migrations
+          test -z "$(git status --porcelain packages/db/migrations)"
+
+      - name: Migrations sur base vide et tests RLS
+        run: pnpm test:db
